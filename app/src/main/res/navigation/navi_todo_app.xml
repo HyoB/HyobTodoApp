@@ -11,14 +11,14 @@
             android:label="fragment_todo_home"
             tools:layout="@layout/fragment_todo_home">
         <action
-                android:id="@+id/action_todoHomeFragment_to_todoCreateFragment"
+                android:id="@+id/action_todoCreateFragment"
                 app:destination="@id/todoCreateFragment"
                 app:enterAnim="@anim/slide_up"
                 app:exitAnim="@anim/fade_out"
                 app:popEnterAnim="@anim/fade_in"
                 app:popExitAnim="@anim/slide_down"/>
         <action
-                android:id="@+id/action_todoHomeFragment_to_todoDetailFragment"
+                android:id="@+id/action_todoDetailFragment"
                 app:destination="@id/todoDetailFragment"
                 app:enterAnim="@anim/slide_up"
                 app:exitAnim="@anim/fade_out"
@@ -36,6 +36,11 @@
             android:id="@+id/todoDetailFragment"
             android:name="com.hyob.hyobtodoapp.presentation.view.TodoDetailFragment"
             android:label="fragment_todo_detail"
-            tools:layout="@layout/fragment_todo_detail"/>
+            tools:layout="@layout/fragment_todo_detail">
+        <argument
+                android:name="todo_id"
+                app:argType="long"
+                android:defaultValue="-1L"/>
+    </fragment>
 
 </navigation>

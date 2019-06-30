@@ -1,35 +1,47 @@
 package com.hyob.hyobtodoapp.presentation.viewmodel
 
 import android.content.Context
-import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import android.view.View
+import androidx.lifecycle.*
 import com.hyob.hyobtodoapp.db.AppDatabase
-import com.hyob.hyobtodoapp.db.table.TodoTable
-import com.hyob.hyobtodoapp.domain.TodoCreateUseCase
+import com.hyob.hyobtodoapp.domain.TodoUseCase
 import com.hyob.hyobtodoapp.repository.TodoRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 
 class TodoCreateViewModel(
-    private val useCase: TodoCreateUseCase
+    private val useCase: TodoUseCase
 ): ViewModel() {
 
-    private val complete = MutableLiveData<Unit>()
-    fun completeTodoCreate() = complete
+    private val scope = viewModelScope + CoroutineExceptionHandler { _, throwable ->
+        _viewStateLiveData.postValue(
+            when (throwable) {
+                is TodoUseCase.EmptyException -> ViewState.EMPTY
+                else -> ViewState.UNKNOWN
+            }
+        )
+    }
 
-    fun confirmButtonClick(title: String, contents: String) = with(useCase){
-//        createTodo(title, contents)
-//        complete.postValue(Unit)
+    private val _viewStateLiveData = MutableLiveData<ViewState>()
+    fun viewStateUpdated(): LiveData<ViewState> = _viewStateLiveData
+
+    fun confirmButtonClick(title: String, contents: String) {
+        scope.launch {
+            useCase.createTodo(title, contents)
+            _viewStateLiveData.postValue(ViewState.COMPLETE)
+        }
+    }
+
+    enum class ViewState {
+        EMPTY, COMPLETE, UNKNOWN
     }
 
     @Suppress("UNCHECKED_CAST")
     class Factory(private val context: Context): ViewModelProvider.NewInstanceFactory(){
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             val repository = TodoRepository(AppDatabase.getInstance(context))
-            val useCase = TodoCreateUseCase(repository)
+            val useCase = TodoUseCase(repository)
             return TodoCreateViewModel(useCase) as T
         }
     }

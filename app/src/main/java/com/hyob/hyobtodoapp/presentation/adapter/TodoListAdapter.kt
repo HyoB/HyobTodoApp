@@ -1,5 +1,6 @@
 package com.hyob.hyobtodoapp.presentation.adapter
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,10 +16,16 @@ class TodoListAdapter: ListAdapter<TodoHolderViewModel, TodoHolder>(COMPARATOR) 
         holder.bind(super.getItem(position))
     }
 
+    override fun onViewRecycled(holder: TodoHolder) {
+        super.onViewRecycled(holder)
+        holder.clear()
+        Log.d("TodoHolder", "onViewRecycled")
+    }
+
     companion object {
         val COMPARATOR = object : DiffUtil.ItemCallback<TodoHolderViewModel>() {
             override fun areItemsTheSame(oldItem: TodoHolderViewModel, newItem: TodoHolderViewModel): Boolean =
-                oldItem.getId() == newItem.getId()
+                oldItem.getIdentifier() == newItem.getIdentifier()
 
             override fun areContentsTheSame(oldItem: TodoHolderViewModel, newItem: TodoHolderViewModel): Boolean =
                 false

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -48,16 +49,31 @@ class TodoCreateFragment : Fragment() {
         }
 
         with(todoCreateVm) {
-            completeTodoCreate().observe(this@TodoCreateFragment, Observer {
-                todoListVm.updateTodoFilter(TodoFilter.ALL)
-                hideKeyboard()
-                findNavController().popBackStack()
+            viewStateUpdated().observe(this@TodoCreateFragment, Observer {
+                when (it) {
+                    TodoCreateViewModel.ViewState.COMPLETE -> complete()
+                    TodoCreateViewModel.ViewState.EMPTY -> empty()
+                    TodoCreateViewModel.ViewState.UNKNOWN -> unknown()
+                }
             })
         }
-
     }
 
-    companion object: Navigationable {
+    private fun complete() {
+        todoListVm.updateTodoFilter(TodoFilter.ALL)
+        hideKeyboard()
+        findNavController().popBackStack()
+    }
+
+    private fun empty() {
+        Toast.makeText(context, "EMPTY!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun unknown() {
+        Toast.makeText(context, "UNKNOWN!", Toast.LENGTH_SHORT).show()
+    }
+
+    companion object : Navigationable {
         override val TARGET: Int
             get() = R.id.todoCreateFragment
     }

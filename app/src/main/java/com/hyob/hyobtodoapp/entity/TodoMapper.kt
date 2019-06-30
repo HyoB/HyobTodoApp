@@ -1,9 +1,8 @@
 package com.hyob.hyobtodoapp.entity
 
 import android.util.Log
-import com.hyob.hyobtodoapp.base.EntityMapper
 import com.hyob.hyobtodoapp.db.table.TodoTable
-import com.hyob.hyobtodoapp.domain.TodoListUseCase
+import com.hyob.hyobtodoapp.domain.TodoUseCase
 import com.hyob.hyobtodoapp.presentation.viewmodel.TodoHolderViewModel
 
 object TodoMapper {
@@ -18,6 +17,7 @@ object TodoMapper {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun toViewModel(entity: Todo, useCase: TodoListUseCase): TodoHolderViewModel =
+    fun toViewModel(entity: Todo, useCase: TodoUseCase): TodoHolderViewModel =
         TodoHolderViewModel(entity, useCase)
+
 }

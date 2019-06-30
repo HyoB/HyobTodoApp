@@ -2,10 +2,10 @@ package com.hyob.hyobtodoapp.base
 
 interface EntityMapper<E, T, VM> {
 
-    fun toDao(entity: E): T
+    fun T.toEntity(): E
 
-    fun toEntity(dao: T): E
+    fun E.toViewModel(): VM
 
-    fun toViewModel(entity: E): VM
+    fun E.toDao(): T
 
 }

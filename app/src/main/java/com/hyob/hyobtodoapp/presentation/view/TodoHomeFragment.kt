@@ -53,7 +53,7 @@ class TodoHomeFragment : Fragment() {
         todoRecyclerView.adapter = todosAdapter
 
         fabCreateTodo.setOnClickListener {
-            findNavController().navigate(TodoCreateFragment.TARGET)
+            findNavController().navigate(TodoHomeFragmentDirections.actionTodoCreateFragment())
         }
 
         with(viewModel) {
