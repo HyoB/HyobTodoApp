@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        app:startDestination="@id/todoHomeFragment">
+
+    <fragment
+            android:id="@+id/todoHomeFragment"
+            android:name="com.hyob.hyobtodoapp.presentation.view.TodoHomeFragment"
+            android:label="fragment_todo_home"
+            tools:layout="@layout/fragment_todo_home">
+        <action
+                android:id="@+id/action_todoHomeFragment_to_todoCreateFragment"
+                app:destination="@id/todoCreateFragment"
+                app:enterAnim="@anim/slide_up"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_down"/>
+        <action
+                android:id="@+id/action_todoHomeFragment_to_todoDetailFragment"
+                app:destination="@id/todoDetailFragment"
+                app:enterAnim="@anim/slide_up"
+                app:exitAnim="@anim/fade_out"
+                app:popEnterAnim="@anim/fade_in"
+                app:popExitAnim="@anim/slide_down"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/todoCreateFragment"
+            android:name="com.hyob.hyobtodoapp.presentation.view.TodoCreateFragment"
+            android:label="fragment_todo_create"
+            tools:layout="@layout/fragment_todo_create"/>
+
+    <fragment
+            android:id="@+id/todoDetailFragment"
+            android:name="com.hyob.hyobtodoapp.presentation.view.TodoDetailFragment"
+            android:label="fragment_todo_detail"
+            tools:layout="@layout/fragment_todo_detail"/>
+
+</navigation>

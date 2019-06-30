@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">HyobTodoApp</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo_filter">Todo Filter</string>
+    <string name="todo_operation">Todo Operation</string>
+    <string name="todo_create_title">Title</string>
+    <string name="todo_create_contents">Enter your TO-DO here.</string>
+</resources>
