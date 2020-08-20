@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
 
         navController = Navigation.findNavController(this, R.id.todoMainFragment)
 
+//        TEST COMMIT
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
